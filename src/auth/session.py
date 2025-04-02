@@ -1,4 +1,3 @@
-from auth.service import AuthService
 from config import SESSION_TIMEOUT_IN_MINUTES
 from datetime import datetime, timedelta
 import streamlit as st
@@ -31,6 +30,7 @@ class SessionManager:
         Returns:
             None
         """
+        from auth.service import AuthService
         # Clear all session state variables if it's a new browser session
         if 'session_initialized' not in st.session_state:
             SessionManager.clear_session_state()
@@ -181,6 +181,7 @@ class SessionManager:
             tuple: A tuple containing a boolean indicating success and an optional 
                    message or authentication data if login is successful.
         """
+        from auth.service import AuthService
         if 'auth_service' not in st.session_state:
             st.session_state.auth_service = AuthService()
             

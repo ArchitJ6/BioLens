@@ -1,9 +1,9 @@
 import streamlit as st
 from datetime import datetime
 import time
+import uuid
 import re
 from st_supabase_connection import SupabaseConnection
-from auth.session import SessionManager
 
 class AuthService:
     """
@@ -160,6 +160,7 @@ class AuthService:
         """
         try:
             self.supabase.client.auth.sign_out()
+            from auth.session import SessionManager
             SessionManager.clear_session_state()
             return True, None
         except Exception as e:
@@ -193,6 +194,7 @@ class AuthService:
             default_title = f"{current_time.strftime('%d-%m-%Y')} | {current_time.strftime('%H:%M:%S')}"
             
             session_data = {
+                'id': str(uuid.uuid4()),  # Generate a UUID for the id field
                 'user_id': user_id,
                 'title': title or default_title,
                 'created_at': current_time.isoformat()
@@ -237,6 +239,7 @@ class AuthService:
         """
         try:
             message_data = {
+                'id': str(uuid.uuid4()),  # Generate a UUID for the id field
                 'session_id': session_id,
                 'content': content,
                 'role': role,

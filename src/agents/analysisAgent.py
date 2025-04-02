@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 import streamlit as st
-from agents import ModelManager
+from agents.modelManager import ModelManager
 
 class AnalysisAgent:
     """
